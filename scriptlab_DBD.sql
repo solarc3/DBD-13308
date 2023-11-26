@@ -1,40 +1,30 @@
 create table if not exists cuenta_usuario
 (
     id_usuario       serial,
-    nombre_usuario   text,
-    correo           text,
-    contrasena       text,
-    fecha_nacimiento date,
+    nombre_usuario   text not null,
+    correo           text not null,
+    contrasena       text not null,
+    fecha_nacimiento date not null,
     primary key (id_usuario)
 );
 
 create table if not exists juego
 (
     id_juego         serial,
-    nombre_juego     text,
-    descripcion      text,
-    precio_original  integer,
+    nombre_juego     text                  not null,
+    descripcion      text                  not null,
+    precio_original  integer default 0     not null,
     precio_oferta    integer,
     descuento        integer,
-    restriccion_edad boolean,
+    restriccion_edad boolean default false not null,
     primary key (id_juego)
 );
 
 create table if not exists genero
 (
     id_genero     serial,
-    nombre_genero text,
+    nombre_genero text not null,
     primary key (id_genero)
-);
-
-create table if not exists ranking
-(
-    id_ranking         serial,
-    cantidad_comprados integer,
-    cantidad_favoritos integer,
-    id_juego           integer,
-    primary key (id_ranking),
-    foreign key (id_juego) references juego
 );
 
 create table if not exists valoracion
@@ -65,15 +55,15 @@ create table if not exists carro_de_compras
 create table if not exists medio_de_pago
 (
     id_pago          serial,
-    nombre_del_medio text,
-    datos_del_medio  text,
+    nombre_del_medio text not null,
+    datos_del_medio  text not null,
     primary key (id_pago)
 );
 
 create table if not exists boleta
 (
     id_boleta serial,
-    detalle   text,
+    fecha     date,
     primary key (id_boleta)
 );
 
@@ -120,9 +110,9 @@ create table if not exists compra_juego
 
 create table if not exists juego_cuenta_usuario
 (
-    id_juego    integer not null,
-    id_usuario  integer not null,
-    es_favorito boolean,
+    id_juego    integer               not null,
+    id_usuario  integer               not null,
+    es_favorito boolean default false not null,
     primary key (id_juego, id_usuario),
     foreign key (id_juego) references juego,
     foreign key (id_usuario) references cuenta_usuario

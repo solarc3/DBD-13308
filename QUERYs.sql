@@ -1,30 +1,52 @@
--- 1. Eliminar un producto del carrito de compras
-DELETE FROM Carro_de_Compras_Juego WHERE ID_Carro = [ID del Carro] AND ID_Juego = [ID del Juego];
--- 2 Mostrar los productos del carrito de compras
-SELECT J.Nombre_Juego, J.Precio_Original
-FROM Juego J
-JOIN Carro_de_Compras_Juego C ON J.ID_Juego = C.ID_Juego
-WHERE C.ID_Carro = [ID del Carro];
--- 3. Mostrar el precio total a pagar por el carrito de compras:
-SELECT SUM(J.Precio_Original) AS Total_Pagar
-FROM Juego J
-JOIN Carro_de_Compras_Juego C ON J.ID_Juego = C.ID_Juego
-WHERE C.ID_Carro = [ID del Carro];
--- 4. Calcular el promedio de juegos que los usuarios tienen en favoritos:
-SELECT AVG(Conteo) AS Promedio_Favoritos
-FROM (SELECT COUNT(*) AS Conteo
-      FROM Juego_Cuenta_Usuario
-      WHERE Es_favorito = TRUE
-      GROUP BY ID_Usuario) AS Subconsulta;
--- 5. Mostrar ranking de los juegos que más personas tienen en favorito:
-SELECT J.ID_Juego, J.Nombre_Juego, COUNT(*) AS Cantidad_Favoritos
-FROM Juego J
-JOIN Juego_Cuenta_Usuario JC ON J.ID_Juego = JC.ID_Juego
-WHERE JC.Es_favorito = TRUE
-GROUP BY J.ID_Juego, J.Nombre_Juego
-ORDER BY Cantidad_Favoritos DESC;
--- 6. Mostrar juegos favoritos de un usuario:
-SELECT J.Nombre_Juego
-FROM Juego J
-JOIN Juego_Cuenta_Usuario JC ON J.ID_Juego = JC.ID_Juego
-WHERE JC.Es_favorito = TRUE AND JC.ID_Usuario = [ID del Usuario];
+-- Ranking de los juegos mas comprados
+SELECT
+    j.id_juego,
+    j.nombre_juego,
+    COUNT(cj.id_compra) AS cantidad_comprados
+FROM
+    juego j
+JOIN
+    compra_juego cj ON j.id_juego = cj.id_juego
+GROUP BY
+    j.id_juego, j.nombre_juego
+ORDER BY
+    cantidad_comprados DESC;
+-- 1. Agregar un producto al carro de compras
+
+INSERT INTO carro_de_compras_juego (id_carro, id_juego)
+VALUES (1, 3);
+
+-- 2. Eliminar un producto del carro de compras
+DELETE FROM carro_de_compras_juego
+WHERE id_carro = 3 AND id_juego = 6;
+
+-- 3.Mostrar los Productos del Carrito de Compras
+SELECT j.nombre_juego, j.precio_original
+FROM juego j
+JOIN carro_de_compras_juego cdj ON j.id_juego = cdj.id_juego
+WHERE cdj.id_carro = 1;
+-- 4. Precio total a pagar por carrito de compra
+SELECT SUM(j.precio_original) AS total_a_pagar
+FROM juego j
+JOIN carro_de_compras_juego cdj ON j.id_juego = cdj.id_juego
+WHERE cdj.id_carro = 1;
+
+-- 5. Calcular el promedio de juegos que los usuarios tienen en promedio
+SELECT AVG(cantidad_favoritos) FROM (
+    SELECT id_usuario, COUNT(id_juego) AS cantidad_favoritos
+    FROM juego_cuenta_usuario
+    WHERE es_favorito = true
+    GROUP BY id_usuario
+) AS favoritos_por_usuario;
+-- 6. Ranking de los juegos que mas personas tienen en favoritos
+SELECT j.nombre_juego, COUNT(jcu.id_usuario) AS cantidad_favoritos
+FROM juego_cuenta_usuario jcu
+JOIN juego j ON jcu.id_juego = j.id_juego
+WHERE jcu.es_favorito = true
+GROUP BY j.nombre_juego
+ORDER BY cantidad_favoritos DESC;
+-- 7. Los juegos favoritos de un usuario
+SELECT j.nombre_juego
+FROM juego j
+JOIN juego_cuenta_usuario jcu ON j.id_juego = jcu.id_juego
+WHERE jcu.id_usuario = 7 AND jcu.es_favorito = true;
