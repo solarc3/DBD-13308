@@ -14,6 +14,7 @@ public class Carro_de_Compras {
     }
 
     // Getters
+
     public int getID_Carro() {
         return ID_Carro;
     }
@@ -27,15 +28,17 @@ public class Carro_de_Compras {
     }
 
     // Setters
+
     public void setID_Carro(int ID_Carro) {
         this.ID_Carro = ID_Carro;
     }
 
-    public void setJuegos_en_Carro(int juegos_en_Carro) {
-        Juegos_en_Carro = juegos_en_Carro;
+    public void setJuegos_en_Carro(int Juegos_en_Carro) {
+        this.Juegos_en_Carro = Juegos_en_Carro;
     }
 
     public void setID_Usuario(int ID_Usuario) {
         this.ID_Usuario = ID_Usuario;
     }
+
 }

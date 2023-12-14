@@ -11,7 +11,6 @@ import org.sql2o.Sql2o;
 public class BoletaRepositoryImp implements BoletaRepository {
     @Autowired
     private Sql2o sql2o;
-
     @Override
     public Boleta crear(Boleta boleta) {
         try (Connection conn = sql2o.open()) {
