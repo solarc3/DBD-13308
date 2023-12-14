@@ -1,23 +1,26 @@
 package DBD.models;
 
+import java.util.Date;
+
 public class Boleta {
     // Atributos
     private int ID_Boleta;
-    private String Detalle;
+    private Date Fecha;
 
     // Constructor
-    public Boleta(int ID_Boleta, String Detalle) {
+    public Boleta(int ID_Boleta, Date Fecha) {
         this.ID_Boleta = ID_Boleta;
-        this.Detalle = Detalle;
+        this.Fecha = Fecha;
     }
 
     // Getters
+
     public int getID_Boleta() {
         return ID_Boleta;
     }
 
-    public String getDetalle() {
-        return Detalle;
+    public Date getFecha() {
+        return Fecha;
     }
 
     // Setters
@@ -26,7 +29,7 @@ public class Boleta {
         this.ID_Boleta = ID_Boleta;
     }
 
-    public void setDetalle(String detalle) {
-        Detalle = detalle;
+    public void setFecha(Date Fecha) {
+        this.Fecha = Fecha;
     }
 }
