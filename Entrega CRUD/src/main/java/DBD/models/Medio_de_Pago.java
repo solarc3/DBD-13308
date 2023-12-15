@@ -32,11 +32,11 @@ public class Medio_de_Pago {
         this.ID_pago = ID_pago;
     }
 
-    public void setNombre_del_medio(String nombre_del_medio) {
-        Nombre_del_medio = nombre_del_medio;
+    public void setNombre_del_medio(String Nombre_del_medio) {
+        this.Nombre_del_medio = Nombre_del_medio;
     }
 
-    public void setDatos_del_medio(String datos_del_medio) {
-        Datos_del_medio = datos_del_medio;
+    public void setDatos_del_medio(String Datos_del_medio) {
+        this.Datos_del_medio = Datos_del_medio;
     }
 }

@@ -12,8 +12,8 @@ public class Cuenta_Usuario {
     private Date Fecha_Nacimiento;
 
     // Constructor
-    public Cuenta_Usuario(int ID_Usuaario, String Nombre_Usuario, String Correo, String Contrasena, Date Fecha_Nacimiento) {
-        this.ID_Usuario = ID_Usuaario;
+    public Cuenta_Usuario(int ID_Usuario, String Nombre_Usuario, String Correo, String Contrasena, Date Fecha_Nacimiento) {
+        this.ID_Usuario = ID_Usuario;
         this.Nombre_Usuario = Nombre_Usuario;
         this.Correo = Correo;
         this.Contrasena = Contrasena;
@@ -21,7 +21,6 @@ public class Cuenta_Usuario {
     }
 
     // Getters
-
     public int getID_Usuario() {
         return ID_Usuario;
     }
@@ -38,7 +37,7 @@ public class Cuenta_Usuario {
         return Contrasena;
     }
 
-    public String getFecha_Nacimiento() {
+    public Date getFecha_Nacimiento() {
         return Fecha_Nacimiento;
     }
 
@@ -48,19 +47,19 @@ public class Cuenta_Usuario {
         this.ID_Usuario = ID_Usuario;
     }
 
-    public void setNombre_Usuario(String nombre_Usuario) {
-        Nombre_Usuario = nombre_Usuario;
+    public void setNombre_Usuario(String Nombre_Usuario) {
+        this.Nombre_Usuario = Nombre_Usuario;
     }
 
-    public void setCorreo(String correo) {
-        Correo = correo;
+    public void setCorreo(String Correo) {
+        this.Correo = Correo;
     }
 
-    public void setContrasena(String contrasena) {
-        Contrasena = contrasena;
+    public void setContrasena(String Contrasena) {
+        this.Contrasena = Contrasena;
     }
 
-    public void setFecha_Nacimiento(String fecha_Nacimiento) {
-        Fecha_Nacimiento = fecha_Nacimiento;
+    public void setFecha_Nacimiento(Date Fecha_Nacimiento) {
+        this.Fecha_Nacimiento = Fecha_Nacimiento;
     }
 }

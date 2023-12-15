@@ -12,12 +12,11 @@ public class Compra_Cuenta_Usuario {
     }
 
     // Getters
-
     public int getID_Compra() {
         return ID_Compra;
     }
 
-    public int getID_Cuenta_Usuario() {
+    public int getID_Usuario() {
         return ID_Usuario;
     }
 
@@ -27,7 +26,7 @@ public class Compra_Cuenta_Usuario {
         this.ID_Compra = ID_Compra;
     }
 
-    public void setID_Cuenta_Usuario(int ID_Cuenta_Usuario) {
-        this.ID_Usuario = ID_Cuenta_Usuario;
+    public void setID_Usuario(int ID_Usuario) {
+        this.ID_Usuario = ID_Usuario;
     }
 }

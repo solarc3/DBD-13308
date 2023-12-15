@@ -14,7 +14,6 @@ public class Juego_Cuenta_Usuario {
     }
 
     // Getters
-
     public int getID_Juego() {
         return ID_Juego;
     }
@@ -23,7 +22,7 @@ public class Juego_Cuenta_Usuario {
         return ID_Usuario;
     }
 
-    public Boolean getEs_favorito() {
+    public Boolean isEs_favorito() {
         return Es_favorito;
     }
 
@@ -40,5 +39,4 @@ public class Juego_Cuenta_Usuario {
     public void setEs_favorito(Boolean Es_favorito) {
         this.Es_favorito = Es_favorito;
     }
-
 }

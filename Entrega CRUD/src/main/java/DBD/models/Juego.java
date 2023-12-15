@@ -30,67 +30,57 @@ public class Juego {
         this.descuento = descuento;
         this.restriccionEdad = restriccionEdad;
     }
-    // Getters
 
-    /**
-     * Retorna el id del juego
-     * @return id del juego
-     */
     public int getIdJuego() {
         return idJuego;
+    }
+
+    public void setIdJuego(int idJuego) {
+        this.idJuego = idJuego;
     }
 
     public String getNombreJuego() {
         return nombreJuego;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public int getPrecioOriginal() {
-        return precioOriginal;
-    }
-
-    public Integer getPrecioOferta() {
-        return precioOferta;
-    }
-
-    public Integer getDescuento() {
-        return descuento;
-    }
-
-    public boolean isRestriccionEdad() {
-        return restriccionEdad;
-    }
-    // Setters
-
-    /**
-     * Setea el id del juego
-     * @param idJuego id del juego
-     */
-    public void setIdJuego(int idJuego) {
-        this.idJuego = idJuego;
-    }
-
     public void setNombreJuego(String nombreJuego) {
         this.nombreJuego = nombreJuego;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
+    public int getPrecioOriginal() {
+        return precioOriginal;
+    }
+
     public void setPrecioOriginal(int precioOriginal) {
         this.precioOriginal = precioOriginal;
     }
 
-    public void setPrecioOferta(Integer precioOferta) {
+    public int getPrecioOferta() {
+        return precioOferta;
+    }
+
+    public void setPrecioOferta(int precioOferta) {
         this.precioOferta = precioOferta;
     }
 
-    public void setDescuento(Integer descuento) {
+    public int getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(int descuento) {
         this.descuento = descuento;
+    }
+
+    public boolean isRestriccionEdad() {
+        return restriccionEdad;
     }
 
     public void setRestriccionEdad(boolean restriccionEdad) {
