@@ -27,7 +27,7 @@ public class BoletaRepositoryImp implements BoletaRepository {
     @Override
     public Boleta update(Boleta boleta) {
         try (Connection conn = sql2o.open()){
-            Integer id = boleta.getID_Boleta(); //se obtiene ID boleta
+            int id = boleta.getID_Boleta(); //se obtiene ID boleta
             conn.createQuery("UPDATE boleta SET Fecha = :Fecha WHERE ID_Boleta = :id")
                     .addParameter("id", id)
                     .addParameter("Fecha", boleta.getFecha())
