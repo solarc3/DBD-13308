@@ -35,7 +35,7 @@ public class Valoracion {
     }
 
     public void setPuntuacion(int puntuacion) {
-        Puntuacion = puntuacion;
+        this.Puntuacion = puntuacion;
     }
 
     public void setID_Juego(int ID_Juego) {
