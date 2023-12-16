@@ -18,7 +18,8 @@ public interface BoletaRepository {
     public Boleta update(Boleta boleta);
     /**
      * Actualiza una boleta en la tabla boleta según su ID
-     * Si uno de estos es NULL o vacios o si la conexión falla resultará en una excepción
+     * Si uno de estos parametros es NULL o vacios o si la conexión falla
+     * resultará en una excepción
      *
      * @param Objeto boleta de la clase boleta con los atributos a actualizar
      * @return Retorna la boleta actualizada o NULL si se tiene una excepción

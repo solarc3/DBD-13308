@@ -17,7 +17,8 @@ public interface Carro_de_Compras_JuegoRepository {
 
     /**
      * Actualiza un carro_de_compras_juego en la tabla carro_de_compras_juego según su ID
-     * Si uno de estos es NULL o vacios o si la conexión falla resultará en una excepción
+     * Si uno de estos parametros es NULL o vacios o si la conexión falla
+     * resultará en una excepción
      *
      * @param Objeto carro_de_compras_juego de la clase
      *               carro_de_compras_juego con los atributos a actualizar
