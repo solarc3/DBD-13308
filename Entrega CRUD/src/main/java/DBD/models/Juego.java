@@ -3,42 +3,33 @@ package DBD.models;
 public class Juego {
 
     // Atributos
-    private int idJuego;
-    private String nombreJuego;
+    private int ID_Juego;
+    private String nombre_Juego;
     private String descripcion;
-    private int precioOriginal;
-    private int precioOferta; // Puede ser null
+    private int precio_original;
+    private int precio_oferta; // Puede ser null
     private int descuento;    // Puede ser null
-    private boolean restriccionEdad;
+    private boolean restriccion_edad;
     // Constructor
-    /**
-     * Constructor Juego
-     * @param idJuego id del juego
-     * @param nombreJuego nombre del juego
-     * @param descripcion descripcion del juego
-     * @param precioOriginal precio original del juego
-     * @param precioOferta precio del juego en oferta
-     * @param descuento descuento del juego
-     * @param restriccionEdad restriccion de edad del juego
-     */
-    public Juego(int idJuego, String nombreJuego, String descripcion, int precioOriginal, Integer precioOferta, Integer descuento, boolean restriccionEdad) {
-        this.idJuego = idJuego;
-        this.nombreJuego = nombreJuego;
+
+    public Juego(int id_Juego, String nombreJuego, String descripcion, int precioOriginal, Integer precioOferta, Integer descuento, boolean restriccionEdad) {
+        this.ID_Juego = id_Juego;
+        this.nombre_Juego = nombreJuego;
         this.descripcion = descripcion;
-        this.precioOriginal = precioOriginal;
-        this.precioOferta = precioOferta;
+        this.precio_original = precioOriginal;
+        this.precio_oferta = precioOferta;
         this.descuento = descuento;
-        this.restriccionEdad = restriccionEdad;
+        this.restriccion_edad = restriccionEdad;
     }
 
     //Getters
 
     public int getIdJuego() {
-        return idJuego;
+        return ID_Juego;
     }
 
     public String getNombreJuego() {
-        return nombreJuego;
+        return nombre_Juego;
     }
 
     public String getDescripcion() {
@@ -46,11 +37,11 @@ public class Juego {
     }
 
     public int getPrecioOriginal() {
-        return precioOriginal;
+        return precio_original;
     }
 
     public int getPrecioOferta() {
-        return precioOferta;
+        return precio_oferta;
     }
 
     public int getDescuento() {
@@ -58,17 +49,17 @@ public class Juego {
     }
 
     public boolean isRestriccionEdad() {
-        return restriccionEdad;
+        return restriccion_edad;
     }
 
     //Setters
 
     public void setIDJuego(int idJuego) {
-        this.idJuego = idJuego;
+        this.ID_Juego = idJuego;
     }
 
     public void setNombreJuego(String nombreJuego) {
-        this.nombreJuego = nombreJuego;
+        this.nombre_Juego = nombreJuego;
     }
 
     public void setDescripcion(String descripcion) {
@@ -76,11 +67,11 @@ public class Juego {
     }
 
     public void setPrecioOriginal(int precioOriginal) {
-        this.precioOriginal = precioOriginal;
+        this.precio_original = precioOriginal;
     }
 
     public void setPrecioOferta(int precioOferta) {
-        this.precioOferta = precioOferta;
+        this.precio_oferta = precioOferta;
     }
 
     public void setDescuento(int descuento) {
@@ -88,6 +79,6 @@ public class Juego {
     }
 
     public void setRestriccionEdad(boolean restriccionEdad) {
-        this.restriccionEdad = restriccionEdad;
+        this.restriccion_edad = restriccionEdad;
     }
 }

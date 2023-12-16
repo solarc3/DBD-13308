@@ -99,7 +99,7 @@ CREATE TABLE Compra_Juego
     FOREIGN KEY (ID_Compra) REFERENCES Compra(ID_Compra),
     FOREIGN KEY (ID_Juego) REFERENCES Juego(ID_Juego)
 );
-CREATE TABLE Juego_Cuenta_UsuarioService
+CREATE TABLE Juego_Cuenta_Usuario
 (
     ID_Juego int,
     ID_Usuario int,

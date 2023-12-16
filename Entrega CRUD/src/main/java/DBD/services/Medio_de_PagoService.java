@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import DBD.models.Medio_de_Pago;
 import DBD.repositories.Medio_de_PagoRepository;
+@CrossOrigin
+@RestController
 public class Medio_de_PagoService {
     private final Medio_de_PagoRepository Medio_de_PagoRepository;
     Medio_de_PagoService(@Lazy Medio_de_PagoRepository Medio_de_PagoRepository){
