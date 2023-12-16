@@ -31,56 +31,60 @@ public class Juego {
         this.restriccionEdad = restriccionEdad;
     }
 
+    //Getters
+
     public int getIdJuego() {
         return idJuego;
-    }
-
-    public void setIdJuego(int idJuego) {
-        this.idJuego = idJuego;
     }
 
     public String getNombreJuego() {
         return nombreJuego;
     }
 
-    public void setNombreJuego(String nombreJuego) {
-        this.nombreJuego = nombreJuego;
-    }
-
     public String getDescripcion() {
         return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 
     public int getPrecioOriginal() {
         return precioOriginal;
     }
 
-    public void setPrecioOriginal(int precioOriginal) {
-        this.precioOriginal = precioOriginal;
-    }
-
     public int getPrecioOferta() {
         return precioOferta;
-    }
-
-    public void setPrecioOferta(int precioOferta) {
-        this.precioOferta = precioOferta;
     }
 
     public int getDescuento() {
         return descuento;
     }
 
-    public void setDescuento(int descuento) {
-        this.descuento = descuento;
-    }
-
     public boolean isRestriccionEdad() {
         return restriccionEdad;
+    }
+
+    //Setters
+
+    public void setIdJuego(int idJuego) {
+        this.idJuego = idJuego;
+    }
+
+    public void setNombreJuego(String nombreJuego) {
+        this.nombreJuego = nombreJuego;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setPrecioOriginal(int precioOriginal) {
+        this.precioOriginal = precioOriginal;
+    }
+
+    public void setPrecioOferta(int precioOferta) {
+        this.precioOferta = precioOferta;
+    }
+
+    public void setDescuento(int descuento) {
+        this.descuento = descuento;
     }
 
     public void setRestriccionEdad(boolean restriccionEdad) {
