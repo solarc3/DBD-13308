@@ -27,7 +27,7 @@ public class Carro_de_Compras_JuegoRepositoryImp implements Carro_de_Compras_Jue
     @Override
     public Carro_de_Compras_Juego update(Carro_de_Compras_Juego carro_de_compras_juego) {
         try (Connection conn = sql2o.open()) {
-            Integer id = carro_de_compras_juego.getID_Carro(); //se obtiene ID carro
+            int id = carro_de_compras_juego.getID_Carro(); //se obtiene ID carro
             conn.createQuery("UPDATE carro_de_compras_juego SET ID_Juego = :ID_Juego WHERE ID_Carro = :id")
                     .addParameter("id", id)
                     .addParameter("ID_Juego", carro_de_compras_juego.getID_Juego())
