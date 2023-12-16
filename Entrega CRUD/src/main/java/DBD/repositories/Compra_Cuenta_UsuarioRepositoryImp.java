@@ -30,7 +30,7 @@ public class Compra_Cuenta_UsuarioRepositoryImp implements Compra_Cuenta_Usuario
     @Override
     public Compra_Cuenta_Usuario update(Compra_Cuenta_Usuario compra_cuenta_usuario) {
         try (Connection conn = sql2o.open()) {
-            Integer id = compra_cuenta_usuario.getID_Compra(); //se obtiene ID compra
+            int id = compra_cuenta_usuario.getID_Compra(); //se obtiene ID compra
             conn.createQuery("UPDATE Compra_Cuenta_Usuario SET id_usuario = :id_usuario WHERE id_compra = :id")
                     .addParameter("id", id)
                     .addParameter("id_usuario", compra_cuenta_usuario.getID_Usuario())

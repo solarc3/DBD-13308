@@ -26,7 +26,7 @@ public class GeneroRepositoryImp implements GeneroRepository{
     @Override
     public Genero update(Genero genero) {
         try (Connection conn = sql2o.open()) {
-            Integer id = genero.getID_Genero(); //se obtiene ID genero
+            int id = genero.getID_Genero(); //se obtiene ID genero
             conn.createQuery("UPDATE genero SET nombre_genero = :nombre_genero WHERE id_genero = :id")
                     .addParameter("id", id)
                     .addParameter("nombre_genero", genero.getNombre_Genero())

@@ -33,7 +33,7 @@ public class JuegoRepositoryImp implements JuegoRepository{
     @Override
     public Juego update(Juego juego) {
         try (Connection conn = sql2o.open()) {
-            Integer id = juego.getIdJuego(); //se obtiene ID juego
+            int id = juego.getIdJuego(); //se obtiene ID juego
             conn.createQuery("UPDATE juego SET nombre_juego = :nombre_juego, descripcion = :descripcion, precio_original = :precio_original, precio_oferta = :precio_oferta, descuento = :descuento, restriccion_edad = :restriccion_edad WHERE id_juego = :id")
                     .addParameter("id", id)
                     .addParameter("nombre_juego", juego.getNombreJuego())

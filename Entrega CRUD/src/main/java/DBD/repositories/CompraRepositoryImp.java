@@ -31,7 +31,7 @@ public class CompraRepositoryImp implements CompraRepository{
     @Override
     public Compra update(Compra compra) {
         try (Connection conn = sql2o.open()) {
-            Integer id = compra.getID_Compra(); //se obtiene ID compra
+            int id = compra.getID_Compra(); //se obtiene ID compra
             conn.createQuery("UPDATE Compra SET total_pagado = :total_pagado, juegos_comprados = :juegos_comprados, id_pago = :id_pago, id_boleta = :id_boleta, id_carro = :id_carro WHERE id_compra = :id")
                     .addParameter("id", id)
                     .addParameter("total_pagado", compra.getTotal_Pagado())

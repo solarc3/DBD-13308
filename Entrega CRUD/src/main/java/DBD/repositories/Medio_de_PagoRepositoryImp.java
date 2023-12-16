@@ -27,7 +27,7 @@ public class Medio_de_PagoRepositoryImp implements Medio_de_PagoRepository{
     @Override
     public Medio_de_Pago update(Medio_de_Pago medio_de_pago) {
         try(Connection conn = sql2o.open()){
-            Integer id = medio_de_pago.getID_pago(); //se obtiene ID medio de pago
+            int id = medio_de_pago.getID_pago(); //se obtiene ID medio de pago
             conn.createQuery("UPDATE Medio_de_Pago SET nombre_del_medio = :Nombre_Medio_de_Pago, datos_del_medio = :Datos_Medio_de_Pago WHERE id_pago = :id")
                     .addParameter("id", id)
                     .addParameter("Nombre_Medio_de_Pago", medio_de_pago.getNombre_del_medio())

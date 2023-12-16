@@ -29,7 +29,7 @@ public class Juego_Cuenta_UsuarioRepositoryImp implements Juego_Cuenta_UsuarioRe
     @Override
     public Juego_Cuenta_Usuario update(Juego_Cuenta_Usuario juego_cuenta_usuario) {
         try (Connection conn = sql2o.open()){
-            Integer id = juego_cuenta_usuario.getID_Juego(); //se obtiene ID juego
+            int id = juego_cuenta_usuario.getID_Juego(); //se obtiene ID juego
             conn.createQuery("UPDATE juego_cuenta_usuario SET id_usuario = :id_usuario, es_favorito = :es_favorito WHERE id_juego = :id")
                     .addParameter("id", id)
                     .addParameter("id_usuario", juego_cuenta_usuario.getID_Usuario())

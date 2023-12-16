@@ -30,7 +30,7 @@ public class Cuenta_UsuarioRepositoryImp implements Cuenta_UsuarioRepository{
     @Override
     public Cuenta_Usuario update(Cuenta_Usuario cuenta_usuario) {
         try (Connection conn = sql2o.open()) {
-            Integer id = cuenta_usuario.getID_Usuario(); //se obtiene ID usuario
+            int id = cuenta_usuario.getID_Usuario(); //se obtiene ID usuario
             conn.createQuery("UPDATE cuenta_usuario SET nombre_usuario = :nombre_usuario, correo = :correo, contrasena = :contrasena, fecha_nacimiento = :fecha_nacimiento WHERE id_usuario = :id")
                     .addParameter("id", id)
                     .addParameter("nombre_usuario", cuenta_usuario.getNombre_Usuario())

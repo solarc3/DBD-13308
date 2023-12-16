@@ -26,7 +26,7 @@ public class SeguimientoRepositoryImp implements SeguimientoRepository{
     @Override
     public Seguimiento update(Seguimiento seguimiento) {
         try (Connection conn = sql2o.open()) {
-            Integer id = seguimiento.getID_Usuario_Seguidor(); //se obtiene ID usuario seguidor
+            int id = seguimiento.getID_Usuario_Seguidor(); //se obtiene ID usuario seguidor
             conn.createQuery("UPDATE seguimiento SET id_usuario_seguido = :id_usuario_seguido WHERE id_usuario_seguidor = :id")
                     .addParameter("id", id)
                     .addParameter("id_usuario_seguido", seguimiento.getID_Usuario_Seguido())

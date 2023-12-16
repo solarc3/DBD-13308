@@ -28,7 +28,7 @@ public class ValoracionRepositoryImp implements ValoracionRepository{
     @Override
     public Valoracion update(Valoracion valoracion) {
         try (Connection conn = sql2o.open()) {
-            Integer id = valoracion.getID_Valoracion(); //se obtiene ID valoracion
+            int id = valoracion.getID_Valoracion(); //se obtiene ID valoracion
             conn.createQuery("UPDATE valoracion SET puntuacion = :puntuacion, id_juego = :id_juego WHERE id_valoracion = :id")
                     .addParameter("id", id)
                     .addParameter("puntuacion", valoracion.getPuntuacion())

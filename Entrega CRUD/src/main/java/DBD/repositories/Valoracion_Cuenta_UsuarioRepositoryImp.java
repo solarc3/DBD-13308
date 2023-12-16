@@ -26,7 +26,7 @@ public class Valoracion_Cuenta_UsuarioRepositoryImp implements Valoracion_Cuenta
     @Override
     public Valoracion_Cuenta_Usuario update(Valoracion_Cuenta_Usuario valoracion_cuenta_usuario) {
         try (Connection conn = sql2o.open()) {
-            Integer id = valoracion_cuenta_usuario.getID_Usuario(); //se obtiene ID usuario
+            int id = valoracion_cuenta_usuario.getID_Usuario(); //se obtiene ID usuario
             conn.createQuery("UPDATE valoracion_cuenta_usuario SET id_valoracion = :id_valoracion WHERE id_usuario = :id")
                     .addParameter("id", id)
                     .addParameter("id_valoracion", valoracion_cuenta_usuario.getID_Valoracion())

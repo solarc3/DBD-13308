@@ -27,7 +27,7 @@ public class TipoRepositoryImp implements TipoRepository{
     @Override
     public Tipo update(Tipo tipo) {
         try (Connection conn = sql2o.open()) {
-            Integer id = tipo.getID_Tipo(); //se obtiene ID tipo
+            int id = tipo.getID_Tipo(); //se obtiene ID tipo
             conn.createQuery("UPDATE tipo SET Nombre_Tipo = :Nombre_Tipo WHERE ID_Tipo = :id")
                     .addParameter("id", id)
                     .addParameter("Nombre_Tipo", tipo.getNombre_Tipo())

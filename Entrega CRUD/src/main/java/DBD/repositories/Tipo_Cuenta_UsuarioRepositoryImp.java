@@ -26,7 +26,7 @@ public class Tipo_Cuenta_UsuarioRepositoryImp implements Tipo_Cuenta_UsuarioRepo
     @Override
     public Tipo_Cuenta_Usuario update(Tipo_Cuenta_Usuario tipo_cuenta_usuario) {
         try (Connection conn = sql2o.open()) {
-            Integer id = tipo_cuenta_usuario.getID_Tipo(); //se obtiene ID tipo
+            int id = tipo_cuenta_usuario.getID_Tipo(); //se obtiene ID tipo
             conn.createQuery("UPDATE tipo_cuenta_usuario SET id_usuario = :id_usuario WHERE id_tipo = :id")
                     .addParameter("id", id)
                     .addParameter("id_usuario", tipo_cuenta_usuario.getID_Usuario())

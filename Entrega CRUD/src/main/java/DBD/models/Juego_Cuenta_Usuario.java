@@ -4,10 +4,10 @@ public class Juego_Cuenta_Usuario {
     // Atributos
     private int ID_Juego;
     private int ID_Usuario;
-    private Boolean Es_favorito;
+    private boolean Es_favorito;
 
     // Constructor
-    public Juego_Cuenta_Usuario(int ID_Juego, int ID_Usuario, Boolean Es_favorito) {
+    public Juego_Cuenta_Usuario(int ID_Juego, int ID_Usuario, boolean Es_favorito) {
         this.ID_Juego = ID_Juego;
         this.ID_Usuario = ID_Usuario;
         this.Es_favorito = Es_favorito;
@@ -22,7 +22,7 @@ public class Juego_Cuenta_Usuario {
         return ID_Usuario;
     }
 
-    public Boolean isEs_favorito() {
+    public boolean isEs_favorito() {
         return Es_favorito;
     }
 
@@ -36,7 +36,7 @@ public class Juego_Cuenta_Usuario {
         this.ID_Usuario = ID_Usuario;
     }
 
-    public void setEs_favorito(Boolean Es_favorito) {
+    public void setEs_favorito(boolean Es_favorito) {
         this.Es_favorito = Es_favorito;
     }
 }
