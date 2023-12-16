@@ -23,6 +23,6 @@ public class Tipo {
         this.ID_Tipo = ID_Tipo;
     }
     public void setNombre_Tipo(String nombre_Tipo) {
-        Nombre_Tipo = nombre_Tipo;
+        this.Nombre_Tipo = nombre_Tipo;
     }
 }
