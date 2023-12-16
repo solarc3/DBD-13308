@@ -27,6 +27,6 @@ public class Genero {
     }
 
     public void setNombre_Genero(String nombre_Genero) {
-        Nombre_Genero = nombre_Genero;
+        this.Nombre_Genero = nombre_Genero;
     }
 }
