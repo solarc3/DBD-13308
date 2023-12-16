@@ -52,11 +52,11 @@ public class Tipo_Cuenta_UsuarioRepositoryImp implements Tipo_Cuenta_UsuarioRepo
     }
 
     @Override
-    public Tipo_Cuenta_Usuario show(int id) {
+    public List<Tipo_Cuenta_Usuario> show(int id) {
         try (Connection conn = sql2o.open()) {
             return conn.createQuery("select * from tipo_cuenta_usuario where id_tipo = :id ")
                     .addParameter("id", id)
-                    .executeAndFetchFirst(Tipo_Cuenta_Usuario.class);
+                    .executeAndFetch(Tipo_Cuenta_Usuario.class);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -64,14 +64,14 @@ public class Tipo_Cuenta_UsuarioRepositoryImp implements Tipo_Cuenta_UsuarioRepo
     }
 
     @Override
-    public Tipo_Cuenta_Usuario showByNombre(String nombre) {
+    public List<Tipo_Cuenta_Usuario> getAll() {
         try (Connection conn = sql2o.open()) {
-            return conn.createQuery("select * from tipo_cuenta_usuario where nombre = :nombre ")
-                    .addParameter("nombre", nombre)
-                    .executeAndFetchFirst(Tipo_Cuenta_Usuario.class);
+            return conn.createQuery("select * from tipo_cuenta_usuario order by id_tipo ASC")
+                    .executeAndFetch(Tipo_Cuenta_Usuario.class);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
+
 }

@@ -13,7 +13,7 @@ public class Compra_Cuenta_UsuarioRepositoryImp implements Compra_Cuenta_Usuario
     private Sql2o sql2o;
 
     @Override
-    public Compra_Cuenta_Usuario create(Compra_Cuenta_Usuario compra_cuenta_usuario) {
+    public Compra_Cuenta_Usuario crear(Compra_Cuenta_Usuario compra_cuenta_usuario) {
         try (Connection conn = sql2o.open()) {
             String sql = "INSERT INTO Compra_Cuenta_Usuario (id_compra, id_usuario) VALUES (:id_compra, :id_usuario)";
             conn.createQuery(sql)

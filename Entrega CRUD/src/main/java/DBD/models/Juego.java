@@ -63,7 +63,7 @@ public class Juego {
 
     //Setters
 
-    public void setIdJuego(int idJuego) {
+    public void setIDJuego(int idJuego) {
         this.idJuego = idJuego;
     }
 

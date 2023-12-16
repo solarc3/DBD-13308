@@ -7,5 +7,5 @@ public interface SeguimientoRepository {
     public Seguimiento update(Seguimiento seguimiento);
     public List<Seguimiento> getAll();
     public List<Seguimiento> show(int id);
-    public String delete(int id);
+    public String delete(int idUsuarioSeguidor, int idUsuarioSeguido);
 }

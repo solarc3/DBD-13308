@@ -22,7 +22,6 @@ public class Carro_de_Compras_JuegoRepositoryImp implements Carro_de_Compras_Jue
             System.out.println(e.getMessage());
             return null;
         }
-
     }
     @Override
     public Carro_de_Compras_Juego update(Carro_de_Compras_Juego carro_de_compras_juego) {

@@ -60,14 +60,14 @@ public class SeguimientoRepositoryImp implements SeguimientoRepository{
             return null;
         }
     }
-
     @Override
-    public String delete(int id) {
+    public String delete(int idUsuarioSeguidor, int idUsuarioSeguido) {
         try (Connection conn = sql2o.open()) {
-            conn.createQuery("DELETE from seguimiento WHERE id_usuario_seguidor = :id")
-                    .addParameter("id", id)
+            conn.createQuery("DELETE FROM seguimiento WHERE id_usuario_seguidor = :id_usuario_seguidor AND id_usuario_seguido = :id_usuario_seguido")
+                    .addParameter("id_usuario_seguidor", idUsuarioSeguidor)
+                    .addParameter("id_usuario_seguido", idUsuarioSeguido)
                     .executeUpdate();
-            return "Seguimiento eliminado";
+            return "Relacion de seguimiento eliminada";
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;

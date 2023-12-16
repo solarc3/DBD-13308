@@ -14,12 +14,18 @@ java {
 repositories {
     mavenCentral()
 }
-
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+}
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.postgresql:postgresql'
-    implementation  group: 'org.sql2o',name: 'sql2o', version: '1.6.0'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation group: 'org.sql2o', name: 'sql2o', version: '1.6.0'
+    implementation 'org.postgresql:postgresql:42.2.27'
 }
 
 tasks.named('test') {
