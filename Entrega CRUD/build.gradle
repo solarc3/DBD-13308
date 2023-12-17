@@ -25,6 +25,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation group: 'org.sql2o', name: 'sql2o', version: '1.6.0'
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
     implementation 'org.postgresql:postgresql:42.2.27'
 }
 

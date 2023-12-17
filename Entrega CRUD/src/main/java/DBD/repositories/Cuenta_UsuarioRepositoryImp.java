@@ -80,4 +80,17 @@ public class Cuenta_UsuarioRepositoryImp implements Cuenta_UsuarioRepository{
             return null;
         }
     }
+
+    //si es que lo encuentra, retornar tipo Cuenta_Usuario, si no, retornar null
+    @Override
+    public Cuenta_Usuario findbyEmail(String email) {
+        try (Connection conn = sql2o.open()) {
+            return conn.createQuery("select * from cuenta_usuario where correo = :email ")
+                    .addParameter("email", email)
+                    .executeAndFetchFirst(Cuenta_Usuario.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

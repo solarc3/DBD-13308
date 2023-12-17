@@ -27,6 +27,10 @@ public class Cuenta_UsuarioService {
     public List<Cuenta_Usuario> show(@PathVariable int id){
         return Cuenta_UsuarioRepository.show(id);
     }
+    @GetMapping("/Cuenta_Usuario/email/{correo}")
+    public Cuenta_Usuario findbyEmail(@PathVariable String correo){
+        return Cuenta_UsuarioRepository.findbyEmail(correo);
+    }
     @PostMapping("/Cuenta_Usuario")
     @ResponseBody
     public Cuenta_Usuario crear(@RequestBody Cuenta_Usuario Cuenta_Usuario){
