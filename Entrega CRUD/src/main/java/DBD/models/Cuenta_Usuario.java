@@ -20,6 +20,9 @@ public class Cuenta_Usuario {
         this.Fecha_Nacimiento = Fecha_Nacimiento;
     }
 
+    public Cuenta_Usuario() {
+    }
+
     // Getters
     public int getID_Usuario() {
         return ID_Usuario;

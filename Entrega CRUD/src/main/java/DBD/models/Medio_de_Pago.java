@@ -13,6 +13,9 @@ public class Medio_de_Pago {
         this.Datos_del_medio = Datos_del_medio;
     }
 
+    public Medio_de_Pago() {
+    }
+
     // Getters
     public int getID_pago() {
         return ID_pago;

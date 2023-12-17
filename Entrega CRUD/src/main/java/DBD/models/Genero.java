@@ -11,6 +11,9 @@ public class Genero {
         this.Nombre_Genero = Nombre_Genero;
     }
 
+    public Genero() {
+    }
+
     // Getters
     public int getID_Genero() {
         return ID_Genero;

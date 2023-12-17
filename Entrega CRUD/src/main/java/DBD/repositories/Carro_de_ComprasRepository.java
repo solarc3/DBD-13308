@@ -1,6 +1,7 @@
 package DBD.repositories;
 
 import DBD.models.Carro_de_Compras;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
 
@@ -55,4 +56,7 @@ public interface Carro_de_ComprasRepository {
      * si se tiene una excepción
      */
     public String delete(int id);
+
+    public Carro_de_Compras existByUser(int id_usuario);
+    public List<JsonNode> obtenerJuegosEnCarro(int idUsuario);
 }

@@ -13,6 +13,9 @@ public class Juego_Cuenta_Usuario {
         this.Es_favorito = Es_favorito;
     }
 
+    public Juego_Cuenta_Usuario() {
+    }
+
     // Getters
     public int getID_Juego() {
         return ID_Juego;

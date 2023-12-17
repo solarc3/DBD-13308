@@ -1,6 +1,12 @@
 package DBD.repositories;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import DBD.models.Carro_de_Compras;
+import DBD.models.Juego;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
@@ -13,17 +19,22 @@ public class Carro_de_ComprasRepositoryImp implements Carro_de_ComprasRepository
     @Override
     public Carro_de_Compras crear(Carro_de_Compras carro_de_compras) {
         try (Connection conn = sql2o.open()) {
-            conn.createQuery("INSERT INTO carro_de_compras (id_Carro, juegos_en_carro, id_Usuario) VALUES (:ID_Carro, :Juegos_en_Carro, :ID_Usuario)")
-                    .addParameter("id_Carro", carro_de_compras.getID_Carro())
+            String insertSql = "INSERT INTO carro_de_compras (juegos_en_carro, id_Usuario) VALUES (:Juegos_en_Carro, :ID_Usuario)";
+
+            int idGenerado = (int) conn.createQuery(insertSql, true)
                     .addParameter("Juegos_en_Carro", carro_de_compras.getJuegos_en_Carro())
-                    .addParameter("id_Usuario", carro_de_compras.getID_Usuario())
-                    .executeUpdate();
+                    .addParameter("ID_Usuario", carro_de_compras.getID_Usuario())
+                    .executeUpdate()
+                    .getKey();
+            carro_de_compras.setID_Carro(idGenerado);
+
             return carro_de_compras;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
+
     @Override
     public Carro_de_Compras update(Carro_de_Compras carro_de_compras){
         try (Connection conn = sql2o.open()){
@@ -72,5 +83,47 @@ public class Carro_de_ComprasRepositoryImp implements Carro_de_ComprasRepository
             System.out.println(e.getMessage());
             return null;
         }
+    }
+    @Override
+    public Carro_de_Compras existByUser(int id_usuario) {
+        try (Connection conn = sql2o.open()) {
+            return conn.createQuery("select * from carro_de_compras where ID_Usuario = :id_usuario ")
+                    .addParameter("id_usuario", id_usuario)
+                    .executeAndFetchFirst(Carro_de_Compras.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    @Override
+    public List<JsonNode> obtenerJuegosEnCarro(int idUsuario) {
+        String sql = "SELECT j.id_juego AS idJuego, j.nombre_juego AS nombreJuego, " +
+                "j.precio_original AS precioOriginal, j.precio_oferta AS precioOferta " +
+                "FROM juego j " +
+                "JOIN carro_de_compras_juego ccj ON j.id_juego = ccj.id_juego " +
+                "JOIN carro_de_compras cc ON ccj.id_carro = cc.id_carro " +
+                "WHERE cc.id_usuario = :idUsuario";
+
+        return getJsonNodes(sql, idUsuario);
+    }
+    private List<JsonNode> getJsonNodes(String sql, int idUsuario) {
+        try (Connection conn = sql2o.open()) {
+            List<Map<String, Object>> results = conn.createQuery(sql)
+                    .addParameter("idUsuario", idUsuario)
+                    .executeAndFetchTable()
+                    .asList();
+            return convertToJSON(results);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+    private List<JsonNode> convertToJSON(List<Map<String, Object>> results) {
+        List<JsonNode> jsonResults = new ArrayList<>();
+        for (Map<String, Object> row : results) {
+            jsonResults.add(objectMapper.valueToTree(row));
+        }
+        return jsonResults;
     }
 }

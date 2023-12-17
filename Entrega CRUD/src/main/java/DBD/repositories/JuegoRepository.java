@@ -58,4 +58,6 @@ public interface JuegoRepository {
     public List<JsonNode> ranking();
 
     public List<JsonNode> rankingFavoritos();
+
+    public Juego findByID(int id);
 }

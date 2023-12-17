@@ -22,6 +22,9 @@ public class Juego {
         this.restriccion_edad = restriccionEdad;
     }
 
+    public Juego() {
+    }
+
     //Getters
 
     public int getIdJuego() {

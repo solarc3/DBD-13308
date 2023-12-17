@@ -12,6 +12,8 @@ public class Valoracion_Cuenta_Usuario {
         this.ID_Valoracion = ID_Valoracion;
     }
 
+    public Valoracion_Cuenta_Usuario() {
+    }
     // Getters
 
     public int getID_Usuario() {

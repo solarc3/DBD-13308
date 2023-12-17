@@ -9,6 +9,9 @@ public class Seguimiento {
         this.ID_Usuario_Seguidor = ID_Usuario_Seguidor;
         this.ID_Usuario_Seguido = ID_Usuario_Seguido;
     }
+
+    public Seguimiento() {
+    }
     //Getters
 
     public int getID_Usuario_Seguidor() {

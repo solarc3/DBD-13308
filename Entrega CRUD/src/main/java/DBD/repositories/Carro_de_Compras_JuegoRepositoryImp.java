@@ -23,6 +23,7 @@ public class Carro_de_Compras_JuegoRepositoryImp implements Carro_de_Compras_Jue
             return null;
         }
     }
+
     @Override
     public Carro_de_Compras_Juego update(Carro_de_Compras_Juego carro_de_compras_juego) {
         try (Connection conn = sql2o.open()) {
@@ -37,6 +38,7 @@ public class Carro_de_Compras_JuegoRepositoryImp implements Carro_de_Compras_Jue
             return null;
         }
     }
+
     @Override
     public List<Carro_de_Compras_Juego> getAll() {
         try (Connection conn = sql2o.open()) {
@@ -47,6 +49,7 @@ public class Carro_de_Compras_JuegoRepositoryImp implements Carro_de_Compras_Jue
             return null;
         }
     }
+
     @Override
     public List<Carro_de_Compras_Juego> show(int id) {
         try (Connection conn = sql2o.open()) {
@@ -58,6 +61,7 @@ public class Carro_de_Compras_JuegoRepositoryImp implements Carro_de_Compras_Jue
             return null;
         }
     }
+
     @Override
     public String delete(int id) {
         try (Connection conn = sql2o.open()) {
@@ -68,6 +72,50 @@ public class Carro_de_Compras_JuegoRepositoryImp implements Carro_de_Compras_Jue
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public boolean existeJuegoEnCarro(int idCarro, int idJuego) {
+        try (Connection conn = sql2o.open()) {
+            String sql = "SELECT COUNT(*) FROM carro_de_compras_juego " +
+                    "WHERE id_carro = :idCarro AND id_juego = :idJuego";
+
+            int count = conn.createQuery(sql)
+                    .addParameter("idCarro", idCarro)
+                    .addParameter("idJuego", idJuego)
+                    .executeScalar(Integer.class);
+
+            return count > 0;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public void agregarJuegoAlCarro(int idCarro, int idJuego) {
+        try (Connection conn = sql2o.open()) {
+            String insertSql = "INSERT INTO carro_de_compras_juego (id_carro, id_juego) VALUES (:idCarro, :idJuego)";
+            conn.createQuery(insertSql)
+                    .addParameter("idCarro", idCarro)
+                    .addParameter("idJuego", idJuego)
+                    .executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error al agregar juego al carro: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void eliminarJuegoDelCarro(int idCarro, int idJuego) {
+        try (Connection conn = sql2o.open()) {
+            String deleteSql = "DELETE FROM carro_de_compras_juego WHERE id_carro = :idCarro AND id_juego = :idJuego";
+            conn.createQuery(deleteSql)
+                    .addParameter("idCarro", idCarro)
+                    .addParameter("idJuego", idJuego)
+                    .executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error al eliminar juego del carro: " + e.getMessage());
         }
     }
 }

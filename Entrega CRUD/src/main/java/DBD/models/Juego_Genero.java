@@ -11,6 +11,9 @@ public class Juego_Genero {
         this.ID_Genero = ID_Genero;
     }
 
+    public Juego_Genero() {
+    }
+
     // Getters
 
     public int getID_Juego() {

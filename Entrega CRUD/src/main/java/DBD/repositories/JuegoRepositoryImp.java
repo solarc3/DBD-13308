@@ -133,6 +133,15 @@ public class JuegoRepositoryImp implements JuegoRepository{
         }
         return jsonResults;
     }
-    // REQUERIMIENTO CARRO DE COMPRAS Y SIMULACION DE PAGO
 
+    public Juego findByID(int ID_Juego) {
+        try (Connection conn = sql2o.open()) {
+            return conn.createQuery("SELECT * FROM juego WHERE id_juego = :id_juego")
+                    .addParameter("id_juego", ID_Juego)
+                    .executeAndFetchFirst(Juego.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

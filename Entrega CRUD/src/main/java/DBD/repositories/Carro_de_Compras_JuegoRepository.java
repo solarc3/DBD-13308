@@ -52,4 +52,10 @@ public interface Carro_de_Compras_JuegoRepository {
      * si se tiene una excepción
      */
     public String delete(int id);
+
+    public boolean existeJuegoEnCarro(int idCarro, int idJuego);
+
+    public void agregarJuegoAlCarro(int idCarro, int idJuego);
+
+    public void eliminarJuegoDelCarro(int idCarro, int idJuego);
 }

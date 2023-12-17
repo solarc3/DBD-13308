@@ -12,6 +12,8 @@ public class Boleta {
         this.ID_Boleta = ID_Boleta;
         this.Fecha = Fecha;
     }
+    public Boleta() {
+    }
 
     // Getters
 

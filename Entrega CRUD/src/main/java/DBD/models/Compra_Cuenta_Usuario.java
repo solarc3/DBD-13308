@@ -11,6 +11,9 @@ public class Compra_Cuenta_Usuario {
         this.ID_Usuario = ID_Usuario;
     }
 
+    public Compra_Cuenta_Usuario() {
+    }
+
     // Getters
     public int getID_Compra() {
         return ID_Compra;

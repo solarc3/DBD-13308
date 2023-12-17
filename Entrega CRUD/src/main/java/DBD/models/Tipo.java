@@ -10,6 +10,9 @@ public class Tipo {
         this.ID_Tipo = ID_Tipo;
         this.Nombre_Tipo = Nombre_Tipo;
     }
+
+    public Tipo() {
+    }
     // Getters
     public int getID_Tipo() {
         return ID_Tipo;

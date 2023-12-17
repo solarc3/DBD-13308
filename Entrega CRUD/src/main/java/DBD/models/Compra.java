@@ -19,6 +19,9 @@ public class Compra {
         this.Juegos_Comprados = Juegos_Comprados;
     }
 
+    public Compra() {
+    }
+
     // Getters
     public int getID_Compra() {
         return ID_Compra;

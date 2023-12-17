@@ -12,6 +12,8 @@ public class Carro_de_Compras {
         this.Juegos_en_Carro = Juegos_en_Carro;
         this.ID_Usuario = ID_Usuario;
     }
+    public Carro_de_Compras() {
+    }
 
     // Getters
 

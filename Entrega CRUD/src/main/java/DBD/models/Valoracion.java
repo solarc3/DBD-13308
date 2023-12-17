@@ -14,6 +14,9 @@ public class Valoracion {
         this.ID_Juego = ID_Juego;
     }
 
+    public Valoracion() {
+    }
+
     // Getters
 
     public int getID_Valoracion() {
