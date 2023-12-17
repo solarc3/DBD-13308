@@ -8,5 +8,6 @@ public interface Cuenta_UsuarioRepository {
     public List<Cuenta_Usuario> show(int id);
     public String delete(int id);
     public Cuenta_Usuario findbyEmail(String email);
+    public Cuenta_Usuario findByEmailAndUsername(String email, String username);
 
 }

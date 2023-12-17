@@ -6,7 +6,7 @@ import org.sql2o.Sql2o;
 import DBD.models.Cuenta_Usuario;
 import java.util.List;
 @Repository
-public class Cuenta_UsuarioRepositoryImp implements Cuenta_UsuarioRepository{
+public class Cuenta_UsuarioRepositoryImp implements Cuenta_UsuarioRepository {
     @Autowired
     private Sql2o sql2o;
 
@@ -87,6 +87,18 @@ public class Cuenta_UsuarioRepositoryImp implements Cuenta_UsuarioRepository{
         try (Connection conn = sql2o.open()) {
             return conn.createQuery("select * from cuenta_usuario where correo = :email ")
                     .addParameter("email", email)
+                    .executeAndFetchFirst(Cuenta_Usuario.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public Cuenta_Usuario findByEmailAndUsername(String email, String username) {
+        try (Connection conn = sql2o.open()) {
+            return conn.createQuery("select * from cuenta_usuario where correo = :email and nombre_usuario = :username")
+                    .addParameter("email", email)
+                    .addParameter("username", username)
                     .executeAndFetchFirst(Cuenta_Usuario.class);
         } catch (Exception e) {
             System.out.println(e.getMessage());

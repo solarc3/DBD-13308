@@ -27,6 +27,11 @@ dependencies {
     implementation group: 'org.sql2o', name: 'sql2o', version: '1.6.0'
     implementation 'javax.servlet:javax.servlet-api:4.0.1'
     implementation 'org.postgresql:postgresql:42.2.27'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.0'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 }
 
 tasks.named('test') {

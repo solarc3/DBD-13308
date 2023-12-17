@@ -1,6 +1,9 @@
 package DBD.repositories;
 import DBD.models.Juego;
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.util.List;
+import java.util.Map;
 
 public interface JuegoRepository {
     /**
@@ -51,4 +54,8 @@ public interface JuegoRepository {
      * si se tiene una excepción
      */
     public String delete(int id);
+
+    public List<JsonNode> ranking();
+
+    public List<JsonNode> rankingFavoritos();
 }

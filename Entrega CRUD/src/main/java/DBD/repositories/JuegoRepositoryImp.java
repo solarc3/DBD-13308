@@ -1,8 +1,12 @@
 package DBD.repositories;
 import DBD.models.Juego;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -85,4 +89,50 @@ public class JuegoRepositoryImp implements JuegoRepository{
             return null;
         }
     }
+    // Requerimiento
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    private List<JsonNode> getJsonNodes(String sql) {
+        try (Connection conn = sql2o.open()) {
+            List<Map<String, Object>> results = conn.createQuery(sql)
+                    .executeAndFetchTable()
+                    .asList();
+            return convertToJSON(results);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<JsonNode> ranking() {
+        String sql = "SELECT j.id_juego AS idJuego, j.nombre_juego AS nombreJuego, COUNT(cj.id_compra) AS cantidad_Comprados " +
+                "FROM juego j " +
+                "JOIN compra_juego cj ON j.id_juego = cj.id_juego " +
+                "GROUP BY j.id_juego, j.nombre_juego " +
+                "ORDER BY cantidad_Comprados DESC";
+
+        return getJsonNodes(sql);
+    }
+    @Override
+    public List<JsonNode> rankingFavoritos() {
+        String sql = "SELECT j.id_juego, j.nombre_juego, COUNT(jcu.id_usuario) AS cantidad_favoritos " +
+                "FROM juego_cuenta_usuario jcu " +
+                "JOIN juego j ON jcu.id_juego = j.id_juego " +
+                "WHERE jcu.es_favorito = true " +
+                "GROUP BY j.id_juego, j.nombre_juego " +
+                "ORDER BY cantidad_favoritos DESC";
+
+        return getJsonNodes(sql);
+    }
+
+    private List<JsonNode> convertToJSON(List<Map<String, Object>> results) {
+        List<JsonNode> jsonResults = new ArrayList<>();
+        for (Map<String, Object> row : results) {
+            jsonResults.add(objectMapper.valueToTree(row));
+        }
+        return jsonResults;
+    }
+    // REQUERIMIENTO CARRO DE COMPRAS Y SIMULACION DE PAGO
+
 }

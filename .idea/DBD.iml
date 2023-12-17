@@ -13,5 +13,7 @@
     <orderEntry type="library" name="Gradle: org.springframework:spring-web:6.1.1" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:10.1.16" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.15.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:3.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:3.2.0" level="project" />
   </component>
 </module>
