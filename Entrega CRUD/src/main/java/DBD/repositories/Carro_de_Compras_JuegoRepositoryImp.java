@@ -96,6 +96,27 @@ public class Carro_de_Compras_JuegoRepositoryImp implements Carro_de_Compras_Jue
     @Override
     public void agregarJuegoAlCarro(int idCarro, int idJuego) {
         try (Connection conn = sql2o.open()) {
+            // Obtener la cantidad actual de juegos en el carro
+            String selectSql = "SELECT juegos_en_carro FROM carro_de_compras WHERE id_carro = :idCarro";
+            Integer cantidadActual = conn.createQuery(selectSql)
+                    .addParameter("idCarro", idCarro)
+                    .executeScalar(Integer.class);
+
+            if (cantidadActual == null) {
+                cantidadActual = 0;
+            }
+
+            // Incrementar la cantidad en 1
+            int nuevaCantidad = cantidadActual + 1;
+
+            // Actualizar la cantidad de juegos en el carro
+            String updateSql = "UPDATE carro_de_compras SET juegos_en_carro = :nuevaCantidad WHERE id_carro = :idCarro";
+            conn.createQuery(updateSql)
+                    .addParameter("nuevaCantidad", nuevaCantidad)
+                    .addParameter("idCarro", idCarro)
+                    .executeUpdate();
+
+            // Insertar el nuevo juego en el carro
             String insertSql = "INSERT INTO carro_de_compras_juego (id_carro, id_juego) VALUES (:idCarro, :idJuego)";
             conn.createQuery(insertSql)
                     .addParameter("idCarro", idCarro)
@@ -105,6 +126,7 @@ public class Carro_de_Compras_JuegoRepositoryImp implements Carro_de_Compras_Jue
             System.out.println("Error al agregar juego al carro: " + e.getMessage());
         }
     }
+
 
     @Override
     public void eliminarJuegoDelCarro(int idCarro, int idJuego) {
@@ -116,6 +138,18 @@ public class Carro_de_Compras_JuegoRepositoryImp implements Carro_de_Compras_Jue
                     .executeUpdate();
         } catch (Exception e) {
             System.out.println("Error al eliminar juego del carro: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void vaciarCarro(int idCarro) {
+        try (Connection conn = sql2o.open()) {
+            String deleteSql = "DELETE FROM carro_de_compras_juego WHERE id_carro = :idCarro";
+            conn.createQuery(deleteSql)
+                    .addParameter("idCarro", idCarro)
+                    .executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error al vaciar carro: " + e.getMessage());
         }
     }
 }

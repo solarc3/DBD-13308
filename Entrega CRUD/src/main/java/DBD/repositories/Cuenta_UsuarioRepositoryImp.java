@@ -105,4 +105,16 @@ public class Cuenta_UsuarioRepositoryImp implements Cuenta_UsuarioRepository {
             return null;
         }
     }
+
+    @Override
+    public Cuenta_Usuario findbyID(int id) {
+        try (Connection conn = sql2o.open()) {
+            return conn.createQuery("select * from cuenta_usuario where id_usuario = :id ")
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Cuenta_Usuario.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

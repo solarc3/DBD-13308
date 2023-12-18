@@ -60,4 +60,6 @@ public interface JuegoRepository {
     public List<JsonNode> rankingFavoritos();
 
     public Juego findByID(int id);
+
+    public List<Juego> verJuegos(boolean esMenorDeEdad);
 }

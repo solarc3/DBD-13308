@@ -14,16 +14,20 @@ public class BoletaRepositoryImp implements BoletaRepository {
     @Override
     public Boleta crear(Boleta boleta) {
         try (Connection conn = sql2o.open()) {
-            conn.createQuery("INSERT INTO Boleta (id_boleta, fecha) VALUES (:ID_Boleta, :Fecha)")
-                    .addParameter("id_boleta", boleta.getID_Boleta())
-                    .addParameter("fecha", boleta.getFecha())
-                    .executeUpdate();
+            String sql = "INSERT INTO Boleta (fecha) VALUES (:Fecha) RETURNING id_boleta";
+            Integer idBoleta = (Integer) conn.createQuery(sql, true)
+                    .addParameter("Fecha", boleta.getFecha())
+                    .executeUpdate()
+                    .getKey();
+            boleta.setID_Boleta(idBoleta);
             return boleta;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
+
+
     @Override
     public Boleta update(Boleta boleta) {
         try (Connection conn = sql2o.open()){

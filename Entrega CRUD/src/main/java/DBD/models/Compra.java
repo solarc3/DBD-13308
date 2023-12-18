@@ -18,10 +18,8 @@ public class Compra {
         this.Total_Pagado = Total_Pagado;
         this.Juegos_Comprados = Juegos_Comprados;
     }
-
     public Compra() {
     }
-
     // Getters
     public int getID_Compra() {
         return ID_Compra;

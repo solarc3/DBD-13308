@@ -9,20 +9,22 @@ import org.sql2o.Sql2o;
 public class Medio_de_PagoRepositoryImp implements Medio_de_PagoRepository{
     @Autowired
     private Sql2o sql2o;
-    @Override
-    public Medio_de_Pago crear(Medio_de_Pago medio_de_pago) {
-        try(Connection conn = sql2o.open()){
-            conn.createQuery("INSERT INTO Medio_de_Pago (id_pago, nombre_del_medio, datos_del_medio) VALUES (:ID_Medio_de_Pago, :Nombre_Medio_de_Pago, :Datos_Medio_de_Pago)")
-                    .addParameter("ID_Medio_de_Pago", medio_de_pago.getID_pago())
-                    .addParameter("Nombre_Medio_de_Pago", medio_de_pago.getNombre_del_medio())
-                    .addParameter("Datos_Medio_de_Pago", medio_de_pago.getDatos_del_medio())
-                    .executeUpdate();
-            return medio_de_pago;
+    public Medio_de_Pago crear(Medio_de_Pago pago) {
+        try (Connection conn = sql2o.open()) {
+            String sql = "INSERT INTO Medio_de_Pago (nombre_del_medio, datos_del_medio) VALUES (:nombre, :datos) RETURNING id_pago";
+            Integer idPago = (Integer) conn.createQuery(sql, true)
+                    .addParameter("nombre", pago.getNombre_del_medio())
+                    .addParameter("datos", pago.getDatos_del_medio())
+                    .executeUpdate()
+                    .getKey();
+            pago.setID_pago(idPago);
+            return pago;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
+
 
     @Override
     public Medio_de_Pago update(Medio_de_Pago medio_de_pago) {

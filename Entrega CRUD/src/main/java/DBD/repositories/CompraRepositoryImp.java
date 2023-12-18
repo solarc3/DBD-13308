@@ -12,21 +12,29 @@ public class CompraRepositoryImp implements CompraRepository{
     @Override
     public Compra crear(Compra compra) {
         try (Connection conn = sql2o.open()) {
-            String sql = "INSERT INTO Compra (id_compra, total_pagado, juegos_comprados, id_pago, id_boleta, id_carro) VALUES(:id_compra, :total_pagado, :juegos_comprados, :id_pago, :id_boleta, :id_carro)";
-            conn.createQuery(sql)
-                    .addParameter("id_compra", compra.getID_Compra())
-                    .addParameter("total_pagado", compra.getTotal_Pagado())
-                    .addParameter("juegos_comprados", compra.getJuegos_Comprados())
-                    .addParameter("id_pago", compra.getID_Pago())
+            String sql = "INSERT INTO Compra (id_boleta, id_carro, id_pago, total_pagado, juegos_comprados) " +
+                    "VALUES (:id_boleta, :id_carro, :id_pago, :total_pagado, :juegos_comprados) RETURNING id_compra";
+            Integer idCompra = (Integer) conn.createQuery(sql, true)
                     .addParameter("id_boleta", compra.getID_Boleta())
                     .addParameter("id_carro", compra.getID_Carro())
-                    .executeUpdate();
+                    .addParameter("id_pago", compra.getID_Pago())
+                    .addParameter("total_pagado", compra.getTotal_Pagado())
+                    .addParameter("juegos_comprados", compra.getJuegos_Comprados())
+                    .executeUpdate()
+                    .getKey();
+            if (idCompra != null) {
+                compra.setID_Compra(idCompra);
+            }
+
             return compra;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
     }
+
+
+
 
     @Override
     public Compra update(Compra compra) {

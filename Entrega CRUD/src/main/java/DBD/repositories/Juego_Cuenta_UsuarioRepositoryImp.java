@@ -77,4 +77,28 @@ public class Juego_Cuenta_UsuarioRepositoryImp implements Juego_Cuenta_UsuarioRe
             return null;
         }
     }
+
+    @Override
+    public void agregarJuegoACuenta(int idUsuario, int idJuego) {
+    try (Connection conn = sql2o.open()) {
+            conn.createQuery("INSERT INTO juego_cuenta_usuario (id_juego, id_usuario) VALUES (:id_juego, :id_usuario)")
+                    .addParameter("id_juego", idJuego)
+                    .addParameter("id_usuario", idUsuario)
+                    .executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public List<Juego_Cuenta_Usuario> getJuegosUsuario(int idUsuario) {
+        try (Connection conn = sql2o.open()) {
+            return conn.createQuery("select * from juego_cuenta_usuario where id_usuario = :id ")
+                    .addParameter("id", idUsuario)
+                    .executeAndFetch(Juego_Cuenta_Usuario.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }

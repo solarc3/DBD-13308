@@ -58,4 +58,6 @@ public interface Carro_de_Compras_JuegoRepository {
     public void agregarJuegoAlCarro(int idCarro, int idJuego);
 
     public void eliminarJuegoDelCarro(int idCarro, int idJuego);
+
+    void vaciarCarro(int idCarro);
 }

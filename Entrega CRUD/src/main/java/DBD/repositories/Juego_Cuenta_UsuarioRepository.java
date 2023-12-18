@@ -56,4 +56,8 @@ public interface Juego_Cuenta_UsuarioRepository {
      * si se tiene una excepción
      */
     public String delete(int id);
+
+    public void agregarJuegoACuenta(int idUsuario, int idJuego);
+
+    public List<Juego_Cuenta_Usuario> getJuegosUsuario(int idUsuario);
 }

@@ -87,7 +87,7 @@ public class Carro_de_ComprasRepositoryImp implements Carro_de_ComprasRepository
     @Override
     public Carro_de_Compras existByUser(int id_usuario) {
         try (Connection conn = sql2o.open()) {
-            return conn.createQuery("select * from carro_de_compras where ID_Usuario = :id_usuario ")
+            return conn.createQuery("select * from carro_de_compras where ID_Usuario = :id_usuario")
                     .addParameter("id_usuario", id_usuario)
                     .executeAndFetchFirst(Carro_de_Compras.class);
         } catch (Exception e) {
@@ -98,13 +98,12 @@ public class Carro_de_ComprasRepositoryImp implements Carro_de_ComprasRepository
     private final ObjectMapper objectMapper = new ObjectMapper();
     @Override
     public List<JsonNode> obtenerJuegosEnCarro(int idUsuario) {
-        String sql = "SELECT j.id_juego AS idJuego, j.nombre_juego AS nombreJuego, " +
-                "j.precio_original AS precioOriginal, j.precio_oferta AS precioOferta " +
+        String sql = "SELECT j.id_juego AS id_juego, j.nombre_juego AS nombre_juego, " +
+                "j.precio_original AS precio_original, j.precio_oferta AS precio_oferta " +
                 "FROM juego j " +
                 "JOIN carro_de_compras_juego ccj ON j.id_juego = ccj.id_juego " +
                 "JOIN carro_de_compras cc ON ccj.id_carro = cc.id_carro " +
                 "WHERE cc.id_usuario = :idUsuario";
-
         return getJsonNodes(sql, idUsuario);
     }
     private List<JsonNode> getJsonNodes(String sql, int idUsuario) {

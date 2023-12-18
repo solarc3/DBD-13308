@@ -11,13 +11,13 @@ import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 @Repository
-public class JuegoRepositoryImp implements JuegoRepository{
+public class JuegoRepositoryImp implements JuegoRepository {
     @Autowired
     private Sql2o sql2o;
 
     @Override
     public Juego crear(Juego juego) {
-        try(Connection conn = sql2o.open()){
+        try (Connection conn = sql2o.open()) {
             conn.createQuery("INSERT INTO juego (id_juego, nombre_juego,descripcion,precio_original,precio_oferta,descuento,restriccion_edad) VALUES (:id_juego, :nombre_juego,:descripcion,:precio_original,:precio_oferta,:descuento,:restriccion_edad)")
                     .addParameter("id_juego", juego.getIdJuego())
                     .addParameter("nombre_juego", juego.getNombreJuego())
@@ -89,6 +89,7 @@ public class JuegoRepositoryImp implements JuegoRepository{
             return null;
         }
     }
+
     // Requerimiento
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -114,6 +115,7 @@ public class JuegoRepositoryImp implements JuegoRepository{
 
         return getJsonNodes(sql);
     }
+
     @Override
     public List<JsonNode> rankingFavoritos() {
         String sql = "SELECT j.id_juego, j.nombre_juego, COUNT(jcu.id_usuario) AS cantidad_favoritos " +
@@ -139,6 +141,22 @@ public class JuegoRepositoryImp implements JuegoRepository{
             return conn.createQuery("SELECT * FROM juego WHERE id_juego = :id_juego")
                     .addParameter("id_juego", ID_Juego)
                     .executeAndFetchFirst(Juego.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Juego> verJuegos(boolean esMenorDeEdad) {
+        try (Connection conn = sql2o.open()) {
+            if (esMenorDeEdad) {
+                return conn.createQuery("SELECT * FROM juego WHERE restriccion_edad = false")
+                        .executeAndFetch(Juego.class);
+            } else {
+                return conn.createQuery("SELECT * FROM juego")
+                        .executeAndFetch(Juego.class);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
