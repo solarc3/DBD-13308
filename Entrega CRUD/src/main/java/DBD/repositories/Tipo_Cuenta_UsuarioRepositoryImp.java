@@ -74,4 +74,16 @@ public class Tipo_Cuenta_UsuarioRepositoryImp implements Tipo_Cuenta_UsuarioRepo
         }
     }
 
+    @Override
+    public int getID_TipoFromUser(int id_usuario) {
+        try (Connection conn = sql2o.open()) {
+            return conn.createQuery("select id_tipo from tipo_cuenta_usuario where id_usuario = :id_usuario ")
+                    .addParameter("id_usuario", id_usuario)
+                    .executeScalar(Integer.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+    }
+
 }

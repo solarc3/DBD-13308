@@ -124,7 +124,6 @@ public class JuegoRepositoryImp implements JuegoRepository {
                 "WHERE jcu.es_favorito = true " +
                 "GROUP BY j.id_juego, j.nombre_juego " +
                 "ORDER BY cantidad_favoritos DESC";
-
         return getJsonNodes(sql);
     }
 

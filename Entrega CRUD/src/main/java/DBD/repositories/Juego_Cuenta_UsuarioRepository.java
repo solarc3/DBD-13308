@@ -1,5 +1,7 @@
 package DBD.repositories;
 import DBD.models.Juego_Cuenta_Usuario;
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.util.List;
 
 public interface Juego_Cuenta_UsuarioRepository {
@@ -60,4 +62,6 @@ public interface Juego_Cuenta_UsuarioRepository {
     public void agregarJuegoACuenta(int idUsuario, int idJuego);
 
     public List<Juego_Cuenta_Usuario> getJuegosUsuario(int idUsuario);
+
+    List<JsonNode> misFavoritos(int idUsuario);
 }

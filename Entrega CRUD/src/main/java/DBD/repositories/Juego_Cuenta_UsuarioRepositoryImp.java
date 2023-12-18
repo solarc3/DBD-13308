@@ -1,7 +1,12 @@
 package DBD.repositories;
-import DBD.models.Carro_de_Compras;
 import DBD.models.Juego_Cuenta_Usuario;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
@@ -99,6 +104,32 @@ public class Juego_Cuenta_UsuarioRepositoryImp implements Juego_Cuenta_UsuarioRe
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public List<JsonNode> misFavoritos(int idUsuario) {
+        String sql = "select nombre_juego, juego.id_juego from juego_cuenta_usuario join juego on juego_cuenta_usuario.id_juego = juego.id_juego where id_usuario = :idUsuario and es_favorito = true";
+        return getJsonNodes(sql, idUsuario);
+    }
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private List<JsonNode> getJsonNodes(String sql, int idUsuario) {
+        try (Connection conn = sql2o.open()) {
+            List<Map<String, Object>> results = conn.createQuery(sql)
+                    .addParameter("idUsuario", idUsuario)
+                    .executeAndFetchTable()
+                    .asList();
+            return convertToJSON(results);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+    private List<JsonNode> convertToJSON(List<Map<String, Object>> results) {
+        List<JsonNode> jsonResults = new ArrayList<>();
+        for (Map<String, Object> row : results) {
+            jsonResults.add(objectMapper.valueToTree(row));
+        }
+        return jsonResults;
     }
 
 }

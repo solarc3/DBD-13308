@@ -55,4 +55,6 @@ public interface Tipo_Cuenta_UsuarioRepository {
      * la tabla tipo_cuenta_usuario o NULL si se tiene una excepción
      */
     public List<Tipo_Cuenta_Usuario> getAll();
+    // return the id_tipo based on a id_usuario given
+    public int getID_TipoFromUser(int id_usuario);
 }

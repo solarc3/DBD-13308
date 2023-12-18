@@ -19,6 +19,8 @@ public class RequerimientosService {
     // LOGIN DE USUARIOS CON INFORMACION PERSISTENTE
     @Autowired
     private Cuenta_UsuarioRepositoryImp cuentaUsuarioRepository;
+    @Autowired
+    private Tipo_Cuenta_UsuarioRepositoryImp tipoCuentaUsuarioRepository;
     @PostMapping("/Requerimientos/login")
     public ResponseEntity<?> login(@RequestBody JsonNode requestBody, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -31,6 +33,10 @@ public class RequerimientosService {
         System.out.println("usuario: " + usuario);
         if (usuario != null && usuario.getContrasena().equals(password)) {
             session.setAttribute("ID_usuario", usuario.getID_Usuario());
+            int id_tipo = tipoCuentaUsuarioRepository.getID_TipoFromUser(usuario.getID_Usuario());
+            session.setAttribute("ID_tipo", id_tipo);
+            System.out.println("ID_usuario: " + usuario.getID_Usuario());
+            System.out.println("ID_tipo: " + id_tipo);
             return ResponseEntity.ok().body("Usuario autenticado exitosamente");
         } else {
             return ResponseEntity.status(401).body("Credenciales incorrectas");
@@ -281,5 +287,13 @@ public class RequerimientosService {
             edad--;
         }
         return edad < 18;
+    }
+
+    //REQUERIMIENTO ver mis juegos favoritos
+    @GetMapping("/Requerimientos/misFavoritos")
+    public ResponseEntity<?> misFavoritos(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer idUsuario = (Integer) session.getAttribute("ID_usuario");
+        return ResponseEntity.ok().body(juegoCuentaRepository.misFavoritos(idUsuario));
     }
 }

@@ -11,5 +11,4 @@ public interface Cuenta_UsuarioRepository {
     public Cuenta_Usuario findByEmailAndUsername(String email, String username);
 
     public Cuenta_Usuario findbyID(int id);
-
 }
