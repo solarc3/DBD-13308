@@ -118,19 +118,13 @@ public class RequerimientosService {
     @PostMapping("/Requerimientos/agregarJuegoAlCarro")
     public ResponseEntity<?> agregarJuegoAlCarro(@RequestBody JsonNode requestBody, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Integer idUsuario = (Integer) session.getAttribute("ID_usuario");
-        if (idUsuario == null) {
-            return ResponseEntity.status(400).body("Usuario no identificado.");
-        }
+        int idUsuario = (int) session.getAttribute("ID_usuario");
         Carro_de_Compras carro = carroComprasRepository.existByUser(idUsuario);
         if (carro == null) {
             return ResponseEntity.status(404).body("Carro de compras no encontrado.");
         }
         int idCarro = carro.getID_Carro(); // Asumiendo que getID_Carro() nunca retorna null si carro existe.
-        Integer idJuego = requestBody.has("id_juego") ? requestBody.get("idJuego").asInt() : null;
-        if (idJuego == null) {
-            return ResponseEntity.status(400).body("ID de juego no proporcionado.");
-        }
+        int idJuego = requestBody.get("id_juego").asInt();
         boolean juegoYaEnCarro = carroComprasJuegoRepository.existeJuegoEnCarro(idCarro, idJuego);
         if (juegoYaEnCarro) {
             return ResponseEntity.status(409).body("El juego ya está en el carro de compras.");
@@ -152,7 +146,7 @@ public class RequerimientosService {
         }
         int idCarro = carro.getID_Carro();
 
-        Integer idJuego = requestBody.has("idJuego") ? requestBody.get("idJuego").asInt() : null;
+        Integer idJuego = requestBody.get("id_juego").asInt();
         if (idJuego == null) {
             return ResponseEntity.status(400).body("ID de juego no proporcionado.");
         }

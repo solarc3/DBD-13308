@@ -127,10 +127,31 @@ public class Carro_de_Compras_JuegoRepositoryImp implements Carro_de_Compras_Jue
         }
     }
 
-
+// ademas tambien de eliminar, bajar en 1 el contador de juegos en el carro
     @Override
     public void eliminarJuegoDelCarro(int idCarro, int idJuego) {
         try (Connection conn = sql2o.open()) {
+            // Obtener la cantidad actual de juegos en el carro
+            String selectSql = "SELECT juegos_en_carro FROM carro_de_compras WHERE id_carro = :idCarro";
+            Integer cantidadActual = conn.createQuery(selectSql)
+                    .addParameter("idCarro", idCarro)
+                    .executeScalar(Integer.class);
+
+            if (cantidadActual == null) {
+                cantidadActual = 0;
+            }
+
+            // Decrementar la cantidad en 1
+            int nuevaCantidad = cantidadActual - 1;
+
+            // Actualizar la cantidad de juegos en el carro
+            String updateSql = "UPDATE carro_de_compras SET juegos_en_carro = :nuevaCantidad WHERE id_carro = :idCarro";
+            conn.createQuery(updateSql)
+                    .addParameter("nuevaCantidad", nuevaCantidad)
+                    .addParameter("idCarro", idCarro)
+                    .executeUpdate();
+
+            // Eliminar el juego del carro
             String deleteSql = "DELETE FROM carro_de_compras_juego WHERE id_carro = :idCarro AND id_juego = :idJuego";
             conn.createQuery(deleteSql)
                     .addParameter("idCarro", idCarro)
