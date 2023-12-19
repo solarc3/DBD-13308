@@ -13,13 +13,13 @@ public class Cuenta_UsuarioRepositoryImp implements Cuenta_UsuarioRepository {
     @Override
     public Cuenta_Usuario crear(Cuenta_Usuario cuenta_usuario) {
         try (Connection conn = sql2o.open()) {
-            conn.createQuery("INSERT INTO cuenta_usuario (id_usuario, nombre_usuario,correo,contrasena,fecha_nacimiento) VALUES (:id_usuario, :nombre_usuario,:correo,:contrasena,:fecha_nacimiento)")
-                    .addParameter("id_usuario", cuenta_usuario.getID_Usuario())
+            conn.createQuery("INSERT INTO cuenta_usuario ( nombre_usuario,correo,contrasena,fecha_nacimiento) VALUES (:nombre_usuario,:correo,:contrasena,:fecha_nacimiento) returning  id_usuario")
                     .addParameter("nombre_usuario", cuenta_usuario.getNombre_Usuario())
                     .addParameter("correo", cuenta_usuario.getCorreo())
                     .addParameter("contrasena", cuenta_usuario.getContrasena())
                     .addParameter("fecha_nacimiento", cuenta_usuario.getFecha_Nacimiento())
-                    .executeUpdate();
+                    .executeUpdate()
+                    .getKey();
             return cuenta_usuario;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -93,7 +93,6 @@ public class Cuenta_UsuarioRepositoryImp implements Cuenta_UsuarioRepository {
             return null;
         }
     }
-
     public Cuenta_Usuario findByEmailAndUsername(String email, String username) {
         try (Connection conn = sql2o.open()) {
             return conn.createQuery("select * from cuenta_usuario where correo = :email and nombre_usuario = :username")
@@ -105,7 +104,6 @@ public class Cuenta_UsuarioRepositoryImp implements Cuenta_UsuarioRepository {
             return null;
         }
     }
-
     @Override
     public Cuenta_Usuario findbyID(int id) {
         try (Connection conn = sql2o.open()) {

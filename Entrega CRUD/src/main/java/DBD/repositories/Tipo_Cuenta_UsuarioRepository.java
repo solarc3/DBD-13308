@@ -57,4 +57,6 @@ public interface Tipo_Cuenta_UsuarioRepository {
     public List<Tipo_Cuenta_Usuario> getAll();
     // return the id_tipo based on a id_usuario given
     public int getID_TipoFromUser(int id_usuario);
+
+    public void agregarTipoACuenta(int id_usuario, int id_tipo);
 }

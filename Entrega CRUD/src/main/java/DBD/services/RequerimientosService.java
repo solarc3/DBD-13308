@@ -127,7 +127,7 @@ public class RequerimientosService {
             return ResponseEntity.status(404).body("Carro de compras no encontrado.");
         }
         int idCarro = carro.getID_Carro(); // Asumiendo que getID_Carro() nunca retorna null si carro existe.
-        Integer idJuego = requestBody.has("idJuego") ? requestBody.get("idJuego").asInt() : null;
+        Integer idJuego = requestBody.has("id_juego") ? requestBody.get("idJuego").asInt() : null;
         if (idJuego == null) {
             return ResponseEntity.status(400).body("ID de juego no proporcionado.");
         }
@@ -296,4 +296,55 @@ public class RequerimientosService {
         Integer idUsuario = (Integer) session.getAttribute("ID_usuario");
         return ResponseEntity.ok().body(juegoCuentaRepository.misFavoritos(idUsuario));
     }
+    //REQUERIMIENTO REGISTRAR USUARIO
+    @PostMapping("/Requerimientos/registro")
+    public ResponseEntity<?> registro(@RequestBody JsonNode requestBody) {
+        String correo = requestBody.get("correo").asText();
+        String contrasena = requestBody.get("contrasena").asText();
+        String nombre_usuario = requestBody.get("nombre_Usuario").asText();
+        String fecha_nacimiento = requestBody.get("fecha_Nacimiento").asText();
+        Cuenta_Usuario usuario = cuentaUsuarioRepository.findByEmailAndUsername(correo, nombre_usuario);
+        if (usuario != null) {
+            return ResponseEntity.status(409).body("El usuario ya existe.");
+        }
+        Cuenta_Usuario nuevoUsuario = new Cuenta_Usuario();
+        nuevoUsuario.setCorreo(correo);
+        nuevoUsuario.setContrasena(contrasena);
+        nuevoUsuario.setNombre_Usuario(nombre_usuario);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = formatter.parse(fecha_nacimiento);
+            nuevoUsuario.setFecha_Nacimiento(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        nuevoUsuario = cuentaUsuarioRepository.crear(nuevoUsuario);
+        Cuenta_Usuario usuario_registrado = cuentaUsuarioRepository.findByEmailAndUsername(correo, nombre_usuario);
+        System.out.println("ID_Usuario: " + usuario_registrado.getID_Usuario());
+        // agregar el tipo 1 default a la cuenta
+        tipoCuentaUsuarioRepository.agregarTipoACuenta(usuario_registrado.getID_Usuario(), 1);
+        return ResponseEntity.ok().body("Usuario creado exitosamente.");
+    }
+
+    // REQUERIMIENTO SEGUIR UN USUARIO
+    @Autowired
+    private SeguimientoRepositoryImp seguimientoRepository;
+    @PostMapping("/Requerimientos/seguirUsuario/{idUsuario_seguir}")
+    public ResponseEntity<?> seguirUsuario(@PathVariable int idUsuario_seguir, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Integer idUsuario = (Integer) session.getAttribute("ID_usuario");
+        if (idUsuario == null) {
+            return ResponseEntity.status(401).body("Usuario no identificado.");
+        }
+        if (idUsuario == idUsuario_seguir) {
+            return ResponseEntity.status(409).body("No puedes seguirte a ti mismo.");
+        }
+        boolean yaSigue = seguimientoRepository.yaSigue(idUsuario, idUsuario_seguir);
+        if (yaSigue) {
+            return ResponseEntity.status(409).body("Ya sigues a este usuario.");
+        }
+        seguimientoRepository.seguirUsuario(idUsuario, idUsuario_seguir);
+        return ResponseEntity.ok().body("Usuario seguido exitosamente.");
+    }
+
 }

@@ -6,9 +6,10 @@ import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 @Repository
-public class SeguimientoRepositoryImp implements SeguimientoRepository{
+public class SeguimientoRepositoryImp implements SeguimientoRepository {
     @Autowired
     private Sql2o sql2o;
+
     @Override
     public Seguimiento crear(Seguimiento seguimiento) {
         try (Connection conn = sql2o.open()) {
@@ -60,6 +61,7 @@ public class SeguimientoRepositoryImp implements SeguimientoRepository{
             return null;
         }
     }
+
     @Override
     public String delete(int idUsuarioSeguidor, int idUsuarioSeguido) {
         try (Connection conn = sql2o.open()) {
@@ -71,6 +73,32 @@ public class SeguimientoRepositoryImp implements SeguimientoRepository{
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    @Override
+    public boolean yaSigue(int idUsuarioSeguidor, int idUsuarioSeguido) {
+        try (Connection conn = sql2o.open()) {
+            List<Seguimiento> lista = conn.createQuery("select * from seguimiento where id_usuario_seguidor = :id_usuario_seguidor AND id_usuario_seguido = :id_usuario_seguido ")
+                    .addParameter("id_usuario_seguidor", idUsuarioSeguidor)
+                    .addParameter("id_usuario_seguido", idUsuarioSeguido)
+                    .executeAndFetch(Seguimiento.class);
+            return !lista.isEmpty();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public void seguirUsuario(int idUsuarioSeguidor, int idUsuarioSeguido) {
+        try (Connection conn = sql2o.open()) {
+            conn.createQuery("INSERT INTO seguimiento (id_usuario_seguidor, id_usuario_seguido) VALUES (:id_usuario_seguidor, :id_usuario_seguido)")
+                    .addParameter("id_usuario_seguidor", idUsuarioSeguidor)
+                    .addParameter("id_usuario_seguido", idUsuarioSeguido)
+                    .executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

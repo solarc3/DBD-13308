@@ -52,4 +52,7 @@ public interface SeguimientoRepository {
      * si se tiene una excepción
      */
     public String delete(int idUsuarioSeguidor, int idUsuarioSeguido);
+
+    public boolean yaSigue(int idUsuarioSeguidor, int idUsuarioSeguido);
+    public void seguirUsuario(int idUsuarioSeguidor, int idUsuarioSeguido);
 }

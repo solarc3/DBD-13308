@@ -86,4 +86,16 @@ public class Tipo_Cuenta_UsuarioRepositoryImp implements Tipo_Cuenta_UsuarioRepo
         }
     }
 
+    @Override
+    public void agregarTipoACuenta(int id_usuario, int id_tipo) {
+        try (Connection conn = sql2o.open()) {
+            conn.createQuery("INSERT INTO tipo_cuenta_usuario (id_tipo, id_usuario) VALUES (:id_tipo, :id_usuario)")
+                    .addParameter("id_tipo", id_tipo)
+                    .addParameter("id_usuario", id_usuario)
+                    .executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
